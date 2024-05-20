@@ -65,7 +65,7 @@ const userChangedHandler = (newUser) => {
             <hr />
         </div>
         <div>
-            <h3 class="subMenuItem" @click="setSection('welcome')">檢視觀看紀錄</h3>
+            <h3 class="subMenuItem" @click="setSection('welcome')">回首頁</h3>
             <hr />
         </div>
     </div>
