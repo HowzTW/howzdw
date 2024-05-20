@@ -50,7 +50,7 @@ const newDrama = () => {
                 myDramaHistory.unshift(newItem);
                 localStorage.setItem('dwMyDramaHistory', JSON.stringify(myDramaHistory));
                 mylist.value = JSON.parse(localStorage.getItem('dwMyDramaHistory'));
-                myEpisodeHistory[newItem]=`${newDramaId.value}-01-01`;
+                myEpisodeHistory[newItem]=`${newDramaId.value}-01-001`;
                 localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
                 Modal.success({
                     title: '完成',

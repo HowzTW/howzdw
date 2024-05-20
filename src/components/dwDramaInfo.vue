@@ -8,7 +8,7 @@ const props = defineProps({
 
 import { dwFetchJsonFile } from '/src/assets/dwServices.js'
 import { dwDramaFilename } from '/src/assets/dwServices.js'
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import { Modal } from 'ant-design-vue';
 import { watch, defineEmits } from 'vue';
 import { CaretRightOutlined } from "@ant-design/icons-vue"
@@ -116,6 +116,61 @@ const playEpisodeId = ref("312-01-001")
 // }
 
 
+const dictEpisodeUrl = {};
+const dictEpisodeName = {};
+const dictFilmSourceName = {};
+
+const createDictEpisode = () => {
+    var jsonObj = ref("");
+    //if(Object.keys(dictEpisodeUrl).length == 0) {
+        fetch(dramaFilename)
+        .then((r) => r.json())
+        .then(
+            (json) => {
+                jsonObj = JSON.parse(JSON.stringify(json));
+                console.log('(createDictEpisode) jsonObj: ', jsonObj.filmSources);
+                playTitle.value = jsonObj.dramaTitle;
+                for(const filmSource of jsonObj.filmSources) {
+                    dictFilmSourceName[filmSource.filmSourceId] = filmSource.filmSourceName;
+                    for(const episode of filmSource.episodes) {
+                        dictEpisodeUrl[episode.episodeId] = episode.episodeUrl;
+                        dictEpisodeName[episode.episodeId] = episode.episodeName;
+                        // console.log(`episode.episodeId = ${episode.episodeId}; episode.episodeUrl = ${episode.episodeUrl} .`);
+                        // console.log(`episode.episodeId = ${episode.episodeId}; episode.episodeName = ${episode.episodeName} .`);
+                    }
+                };
+                playEpisodeId.value = lastViewedEpisode;
+                playEpisodeName.value = dictEpisodeName[lastViewedEpisode];
+                playEpisodeUrl.value = dictEpisodeUrl[lastViewedEpisode];
+                playFilmSource.value = dictFilmSourceName[lastViewedEpisode.substring(0, lastViewedEpisode.length-4)];
+            }
+        ) //then
+        .catch( 
+            (reason) => {
+                console.log('(dwFetchJsonFile) Error: ', reason)
+            }
+        );
+    //}
+}
+
+createDictEpisode();
+// playEpisodeId.value = lastViewedEpisode;
+// playEpisodeName.value = dictEpisodeName[lastViewedEpisode];
+// playEpisodeUrl.value = dictEpisodeUrl[lastViewedEpisode];
+// playFilmSource.value = dictFilmSourceName[lastViewedEpisode.substring(0, lastViewedEpisode.length-4)];
+// console.log("onSetup: playFilmSource - " + Object.keys(dictEpisodeName));
+
+
+const playLastViewed = () => {
+    playEpisodeId.value = lastViewedEpisode;
+    playEpisodeName.value = dictEpisodeName[lastViewedEpisode];
+    playEpisodeUrl.value = dictEpisodeUrl[lastViewedEpisode];
+    playFilmSource.value = dictFilmSourceName[lastViewedEpisode.substring(0, lastViewedEpisode.length-4)];
+    playVideo(playTitle.value, playFilmSource.value, playEpisodeName.value, playEpisodeUrl.value, playEpisodeId.value);
+}
+
+
+
 const playVideo = (title, filmsource, episodename, episodeurl, episodeId) =>
 {
     playTitle.value = title;
@@ -150,8 +205,6 @@ componentKey = (componentKey + 1) % 10;
 
 const PlayNext = () => {
     createDictEpisode();
-    //找出下一集網址
-
     //playEpisodeId.value = "312-02-005";
     let originalEpisodeId = playEpisodeId.value;
     let playDramaIdFilmsourceId = originalEpisodeId.substring(0, originalEpisodeId.length -3);
@@ -162,47 +215,20 @@ const PlayNext = () => {
     playEpisodeUrl.value = dictEpisodeUrl[playEpisodeId.value];
     lastViewedEpisode = playEpisodeId.value;
     myEpisodeHistory[props.siteAndId] = lastViewedEpisode;
+    localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
+    playVideo(playTitle.value, playFilmSource.value, playEpisodeName.value, playEpisodeUrl.value, playEpisodeId.value);
 
 
     //更改顯示集數名稱
 
-    Modal.error({
-        title: `PLAY NEXT: ${playEpisodeId.value}`,
-        content: `NEXT: ${Object.keys(dictEpisodeName)}`,
-        okText: '關閉'
-    });
+    // Modal.error({
+    //     title: `PLAY NEXT: ${playEpisodeId.value}`,
+    //     content: `NEXT: ${Object.keys(dictEpisodeName)}`,
+    //     okText: '關閉'
+    // });
 
 }
 
-const dictEpisodeUrl = {};
-const dictEpisodeName = {};
-
-const createDictEpisode = () => {
-    var jsonObj = ref("");
-    //if(Object.keys(dictEpisodeUrl).length == 0) {
-        fetch(dramaFilename)
-        .then((r) => r.json())
-        .then(
-            (json) => {
-                jsonObj = JSON.parse(JSON.stringify(json));
-                console.log('(createDictEpisode) jsonObj: ', jsonObj.filmSources);
-                for(const filmSource of jsonObj.filmSources) {
-                    for(const episode of filmSource.episodes) {
-                        dictEpisodeUrl[episode.episodeId] = episode.episodeUrl;
-                        dictEpisodeName[episode.episodeId] = episode.episodeName;
-                        // console.log(`episode.episodeId = ${episode.episodeId}; episode.episodeUrl = ${episode.episodeUrl} .`);
-                        // console.log(`episode.episodeId = ${episode.episodeId}; episode.episodeName = ${episode.episodeName} .`);
-                    }
-                };
-            }
-        ) //then
-        .catch( 
-            (reason) => {
-                console.log('(dwFetchJsonFile) Error: ', reason)
-            }
-        );
-    //}
-}
 
 
 </script>
@@ -225,11 +251,12 @@ const createDictEpisode = () => {
                 <a-flex vertical gap="small" justify="start">
                     <a-flex gap="small" justify="start">
                         <a-button class="buttonPrimary" type="primary" size="large"  @click="removeDrama(dramaObj.dramaTitle)"><h3><FastBackwardFilled  style="font-size:larger;" /></h3></a-button>
-                        <a-button class="buttonPrimary" type="primary" size="large"  @click="removeDrama(dramaObj.dramaTitle)"><h3>播放 <PlayCircleFilled /></h3></a-button>
+                        <a-button class="buttonPrimary" type="primary" size="large"  @click="playLastViewed"><h3>播放 <PlayCircleFilled /></h3></a-button>
                         <a-button class="buttonPrimary" type="primary" size="large"  @click="PlayNext"><h3><FastForwardFilled style="font-size:larger;" /></h3></a-button>
                     </a-flex>
                     <a-flex>
-                        ({{ lastViewedEpisode }})
+                        <!-- ({{ lastViewedEpisode }})({{ playTitle }})({{ playFilmSource }})({{ playEpisodeId }})({{ playEpisodeName }})({{ playEpisodeUrl }}) -->
+                        <h2 class="colorPrimary">{{ playFilmSource }} - {{ playEpisodeName }}</h2>
                     </a-flex>
                 </a-flex>
             </a-flex>
@@ -238,7 +265,7 @@ const createDictEpisode = () => {
             <a-collapse v-model:activeKey="activeKey" accordion  expand-icon-position="end" style="width: 100%; margin: 0px; padding: 0;">
                 <a-collapse-panel key="title" >
                     <template #header>
-                        <h3 class="colorPrimary">影集來源 ({{ siteAndId }})</h3>
+                        <h2 class="colorPrimary">影集來源 ({{ siteAndId }})</h2>
                     </template>
                     <a-collapse v-model:activeKey="activeKeySource" accordion style="width: 100%; margin: 0px; padding: 0;" >
                         <template #expandIcon="{ isActive }">
@@ -246,7 +273,7 @@ const createDictEpisode = () => {
                         </template>
                         <a-collapse-panel v-for="filmSource in dramaObj.filmSources" :key="filmSource.filmSourceId">
                             <template #header>
-                                <h3>{{ filmSource.filmSourceName }}</h3>
+                                <h2>{{ filmSource.filmSourceName }}</h2>
                             </template>
                             <a-flex wrap="wrap" gap="small">
                                 <a-button v-for="episode in filmSource.episodes" :class="episodeButtonClass(episode.episodeId)" :type="episodeButtonType(episode.episodeId)"  :danger="episodeButtonDanger(episode.episodeId)" size="large" style="width: 120px" @click="playVideo(dramaObj.dramaTitle, filmSource.filmSourceName, episode.episodeName, episode.episodeUrl, episode.episodeId)"><h3>{{ episode.episodeName }}</h3></a-button>
