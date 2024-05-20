@@ -318,7 +318,7 @@ const PlayPrev = () => {
                 </a-flex>
             </a-flex>
         </a-flex>
-        <a-flex vertical style="width: 100%; margin: 0px; padding: 0;">
+        <a-flex vertical style="width: 100%; margin-bottom: 40px; margin-top: 0px; margin-left: 0px; margin-right: 0px;  padding: 0;">
             <a-collapse v-model:activeKey="activeKey" accordion  expand-icon-position="end" style="width: 100%; margin: 0px; padding: 0;">
                 <a-collapse-panel key="title" >
                     <template #header>
