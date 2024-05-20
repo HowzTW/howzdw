@@ -89,6 +89,26 @@ const episodeButtonDanger = (episodeId) => {
     return (episodeId == lastViewedEpisode) ? (true) : (false);
 }
 
+const nextButtonDisabled = (episodeId) => {
+    createDictEpisode();
+    let originalEpisodeId = episodeId;
+    let playDramaIdFilmsourceId = originalEpisodeId.substring(0, originalEpisodeId.length -3);
+    let originalEpisodeSerialNo = originalEpisodeId.substring(originalEpisodeId.length -3, originalEpisodeId.length);
+    let nextEpisodeSerialNo = String(parseInt(originalEpisodeSerialNo) + 1).padStart(3, "0");
+    let nextEpisodeId = playDramaIdFilmsourceId + nextEpisodeSerialNo;
+    return (dictEpisodeName.hasOwnProperty(nextEpisodeId)) ? (false) : (true);
+}
+
+const prevButtonDisabled = (episodeId) => {
+    createDictEpisode();
+    let originalEpisodeId = episodeId;
+    let playDramaIdFilmsourceId = originalEpisodeId.substring(0, originalEpisodeId.length -3);
+    let originalEpisodeSerialNo = originalEpisodeId.substring(originalEpisodeId.length -3, originalEpisodeId.length);
+    let nextEpisodeSerialNo = String(parseInt(originalEpisodeSerialNo) - 1).padStart(3, "0");
+    let nextEpisodeId = playDramaIdFilmsourceId + nextEpisodeSerialNo;
+    return (dictEpisodeName.hasOwnProperty(nextEpisodeId)) ? (false) : (true);
+}
+
 
 const playEpisodeUrl = ref('https://cdn8.yzzy-online.com/20220729/11709_f23c957d/index.m3u8')
 // const setClipurl = (value) => {
@@ -209,15 +229,45 @@ const PlayNext = () => {
     let originalEpisodeId = playEpisodeId.value;
     let playDramaIdFilmsourceId = originalEpisodeId.substring(0, originalEpisodeId.length -3);
     let originalEpisodeSerialNo = originalEpisodeId.substring(originalEpisodeId.length -3, originalEpisodeId.length);
-    let nextEpisodeSerialNo = String(parseInt(originalEpisodeSerialNo) + 1).padStart(3, "0");;
-    playEpisodeId.value = playDramaIdFilmsourceId + nextEpisodeSerialNo;
-    playEpisodeName.value = dictEpisodeName[playEpisodeId.value];
-    playEpisodeUrl.value = dictEpisodeUrl[playEpisodeId.value];
-    lastViewedEpisode = playEpisodeId.value;
-    myEpisodeHistory[props.siteAndId] = lastViewedEpisode;
-    localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
-    playVideo(playTitle.value, playFilmSource.value, playEpisodeName.value, playEpisodeUrl.value, playEpisodeId.value);
+    let nextEpisodeSerialNo = String(parseInt(originalEpisodeSerialNo) + 1).padStart(3, "0");
+    let nextEpisodeId = playDramaIdFilmsourceId + nextEpisodeSerialNo;
+    if(dictEpisodeName.hasOwnProperty(nextEpisodeId)) {
+        playEpisodeId.value = playDramaIdFilmsourceId + nextEpisodeSerialNo;
+        playEpisodeName.value = dictEpisodeName[playEpisodeId.value];
+        playEpisodeUrl.value = dictEpisodeUrl[playEpisodeId.value];
+        lastViewedEpisode = playEpisodeId.value;
+        myEpisodeHistory[props.siteAndId] = lastViewedEpisode;
+        localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
+        playVideo(playTitle.value, playFilmSource.value, playEpisodeName.value, playEpisodeUrl.value, playEpisodeId.value);
+    }
 
+    //更改顯示集數名稱
+
+    // Modal.error({
+    //     title: `PLAY NEXT: ${playEpisodeId.value}`,
+    //     content: `NEXT: ${Object.keys(dictEpisodeName)}`,
+    //     okText: '關閉'
+    // });
+
+}
+
+const PlayPrev = () => {
+    createDictEpisode();
+    //playEpisodeId.value = "312-02-005";
+    let originalEpisodeId = playEpisodeId.value;
+    let playDramaIdFilmsourceId = originalEpisodeId.substring(0, originalEpisodeId.length -3);
+    let originalEpisodeSerialNo = originalEpisodeId.substring(originalEpisodeId.length -3, originalEpisodeId.length);
+    let prevEpisodeSerialNo = String(parseInt(originalEpisodeSerialNo) - 1).padStart(3, "0");
+    let prevEpisodeId = playDramaIdFilmsourceId + prevEpisodeSerialNo;
+    if(dictEpisodeName.hasOwnProperty(prevEpisodeId)) {
+        playEpisodeId.value = playDramaIdFilmsourceId + prevEpisodeSerialNo;
+        playEpisodeName.value = dictEpisodeName[playEpisodeId.value];
+        playEpisodeUrl.value = dictEpisodeUrl[playEpisodeId.value];
+        lastViewedEpisode = playEpisodeId.value;
+        myEpisodeHistory[props.siteAndId] = lastViewedEpisode;
+        localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
+        playVideo(playTitle.value, playFilmSource.value, playEpisodeName.value, playEpisodeUrl.value, playEpisodeId.value);
+    }
 
     //更改顯示集數名稱
 
@@ -250,9 +300,9 @@ const PlayNext = () => {
                 </a-flex>
                 <a-flex vertical gap="small" justify="start">
                     <a-flex gap="small" justify="start">
-                        <a-button class="buttonPrimary" type="primary" size="large"  @click="removeDrama(dramaObj.dramaTitle)"><h3><FastBackwardFilled  style="font-size:larger;" /></h3></a-button>
+                        <a-button class="buttonPrimary" type="primary" size="large"  @click="PlayPrev" :disabled="prevButtonDisabled(lastViewedEpisode)"><h3><FastBackwardFilled  style="font-size:larger;" /></h3></a-button>
                         <a-button class="buttonPrimary" type="primary" size="large"  @click="playLastViewed"><h3>播放 <PlayCircleFilled /></h3></a-button>
-                        <a-button class="buttonPrimary" type="primary" size="large"  @click="PlayNext"><h3><FastForwardFilled style="font-size:larger;" /></h3></a-button>
+                        <a-button class="buttonPrimary" type="primary" size="large"  @click="PlayNext" :disabled="nextButtonDisabled(lastViewedEpisode)"><h3><FastForwardFilled style="font-size:larger;" /></h3></a-button>
                     </a-flex>
                     <a-flex>
                         <!-- ({{ lastViewedEpisode }})({{ playTitle }})({{ playFilmSource }})({{ playEpisodeId }})({{ playEpisodeName }})({{ playEpisodeUrl }}) -->
@@ -323,7 +373,7 @@ const PlayNext = () => {
             <template #title>
                 <h1 class="colorPrimary"></h1>
             </template>
-            <p>{{ playFilmSource }} - {{ playEpisodeName }}</p>
+            <h3 class="colorPrimary">{{ playFilmSource }} - {{ playEpisodeName }}</h3>
             <video :src="playEpisodeUrl" controls autoplay style="width: 300px;" @ended="PlayNext">
                 <!-- <source :src="playEpisodeUrl" type="application/x-mpegURL"> -->
             </video>

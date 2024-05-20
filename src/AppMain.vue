@@ -32,8 +32,8 @@ const setSubMenuInvisible = () => {
 const userChangedHandler = (newUser) => {
     //setUser(newUser);
     user.value = localStorage.getItem('dwUserRole');
-    //setSection('main');
-    setSection('sysreset');
+    setSection('main');
+    //setSection('sysreset');
 }
 
 </script>
@@ -42,7 +42,7 @@ const userChangedHandler = (newUser) => {
     <div id="menu" class="divMenu" v-if="section !== 'welcome'">
         <img class="menuLogo" @click="setSection('main')" src="/images/icon-512.png" />
         <h1 class="menuTitle">追劇小幫手</h1>
-        <small>{{ section }}</small>
+        <!-- <small>{{ section }}</small> -->
         <div class="menuButton" @click="changeSubMenuVisible()">
             <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 24 24">
                 <path fill="currentColor"

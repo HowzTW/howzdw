@@ -7,9 +7,9 @@ import { dwInitAppLocalStorage } from '/src/assets/dwServices.js'
 
 const passwd = ref("");
 let userRole = ""; //空字串
-let myDramaHistory = ["pttplay.co.257106", "pttplay.co.256822"] //空陣列
-let myEpisodeHistory = {"pttplay.co.257106":"257106-01-001", "pttplay.co.256822":"256822-01-001"} //空字典
-let mySites = ["pttplay.co", "gimy.ai"] //空字典
+let myDramaHistory = ["gimy.ai.255602"] //空陣列
+let myEpisodeHistory = {"gimy.ai.255602":"255602-01-001"} //空字典
+let mySites = ["gimy.ai", "pttplay.co"] //空字典
 
 
 
