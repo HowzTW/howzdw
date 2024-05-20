@@ -207,6 +207,13 @@ const playVideo = (title, filmsource, episodename, episodeurl, episodeId) =>
     // okText: '關閉'
     // });
 
+    const pos = ref(-1);
+    pos.value = myDramaHistory.indexOf(props.siteAndId);
+    myDramaHistory.splice(pos.value, 1);
+    myDramaHistory.unshift(props.siteAndId);
+    localStorage.setItem('dwMyDramaHistory', JSON.stringify(myDramaHistory));
+
+
     showDrawer();
 }
 
