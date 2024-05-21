@@ -77,33 +77,33 @@ const newDrama = () => {
         </a-flex>
         <a-flex vertical>
             <a-flex>
-                <h3>請選擇影集來源網站：</h3>
+                <h2>請選擇影集來源網站：</h2>
             </a-flex>
             <a-flex>
                 <a-input-group compact>
-                    <a-select v-model:value="siteValue" style="width: 200px" :options="optionSites">
+                    <a-select size="large" v-model:value="siteValue" style="width: 200px" :options="optionSites">
                     </a-select>
                 </a-input-group>
             </a-flex>
         </a-flex>
         <a-flex vertical>
             <a-flex>
-                <h3>請輸入影集編號：</h3>
+                <h2>請輸入影集編號：</h2>
             </a-flex>
             <a-flex>
                 <a-input-group compact>
-                    <a-input v-model:value="newDramaId" style="width: 200px" />
-                    <a-button type="primary" @click="newDrama()">新增</a-button>
+                    <a-input size="large" v-model:value="newDramaId" style="width: 200px" />
+                    <a-button size="large" type="primary" @click="newDrama()">新增</a-button>
                 </a-input-group>
             </a-flex>
         </a-flex>
         <a-flex>
-            <a-divider orientation="left"  orientation-margin="20px">已登錄影集編號清單 ({{ mylist.length }})</a-divider>
+            <a-divider  orientation="left"  orientation-margin="20px"><h2>已登錄影集編號清單 ({{ mylist.length }}) </h2></a-divider>
         </a-flex>
         <a-flex>
             <a-list size="large" bordered :data-source="mylist" style="width: 100%">
                 <template #renderItem="{ item }">
-                <a-list-item>{{ item }}</a-list-item>
+                <a-list-item><h2>{{ item }}</h2></a-list-item>
                 </template>
             </a-list>
         </a-flex>
