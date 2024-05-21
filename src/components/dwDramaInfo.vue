@@ -221,10 +221,16 @@ const placement = ref('bottom');
 const open = ref(false);
 const showDrawer = () => {
   open.value = true;
+  let myPlayer = document.getElementById("dwPlayer"+props.siteAndId);
+  myPlayer.play();
+
 };
 const onClose = () => {
   open.value = false;
   componentKey = (componentKey + 1) % 10;
+
+  let myPlayer = document.getElementById("dwPlayer"+props.siteAndId);
+  myPlayer.pause();
 
 };
 
@@ -384,7 +390,7 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
                 <h1 class="colorPrimary"></h1>
             </template>
             <h3 class="colorPrimary">{{ playFilmSource }} - {{ playEpisodeName }}</h3>
-            <video :src="playEpisodeUrl" controls autoplay style="width: 300px;" @ended="PlayNext">
+            <video :id="'dwPlayer'+siteAndId" :src="playEpisodeUrl" controls autoplay style="width: 300px;" @ended="PlayNext">
                 <!-- <source :src="playEpisodeUrl" type="application/x-mpegURL"> -->
             </video>
             <!-- <video src="https://m3u.haiwaikan.com/xm3u8/c9265de5e11c37c608c85996ffd5a40068a4ebdac8735e1a0a9c5b22bd47d08d9921f11e97d0da21.m3u8" controls style="width: 300px;"></video>
