@@ -142,7 +142,7 @@ const dictFilmSourceName = {};
 
 const createDictEpisode = () => {
     var jsonObj = ref("");
-    //if(Object.keys(dictEpisodeUrl).length == 0) {
+    if(Object.keys(dictEpisodeUrl).length == 0) {
         fetch(dramaFilename)
         .then((r) => r.json())
         .then(
@@ -170,7 +170,7 @@ const createDictEpisode = () => {
                 console.log('(dwFetchJsonFile) Error: ', reason)
             }
         );
-    //}
+    }
 }
 
 createDictEpisode();
@@ -286,7 +286,10 @@ const PlayPrev = () => {
 
 }
 
+const filmSourceStyle = (filmSourceId, episodeId) => {
 
+    return (episodeId.startsWith(filmSourceId)) ? "headerFilmsource1" : "headerFilmsource2";
+}
 
 </script>
 
@@ -324,11 +327,11 @@ const PlayPrev = () => {
                     <template #header>
                         <h2 class="colorPrimary">影集來源 ({{ siteAndId }})</h2>
                     </template>
-                    <a-collapse v-model:activeKey="activeKeySource" accordion style="width: 100%; margin: 0px; padding: 0;" >
+                    <a-collapse v-model:activeKey="activeKeySource" accordion  v-for="filmSource in dramaObj.filmSources"  :class="filmSourceStyle(filmSource.filmSourceId,lastViewedEpisode)" >
                         <template #expandIcon="{ isActive }">
                             <CaretRightOutlined :rotate="isActive ? 90 : 0" />
                         </template>
-                        <a-collapse-panel v-for="filmSource in dramaObj.filmSources" :key="filmSource.filmSourceId">
+                        <a-collapse-panel :key="filmSource.filmSourceId">
                             <template #header>
                                 <h2>{{ filmSource.filmSourceName }}</h2>
                             </template>
@@ -390,3 +393,22 @@ const PlayPrev = () => {
 
 </template>
 
+
+<style scoped>
+.headerFilmsource1 {
+    background: #f7e7e7;
+    border-radius: 4px;
+    width: 100%; 
+    margin: 0px; 
+    padding: 0px;
+}
+
+.headerFilmsource2 {
+    background: #f7f7f7;
+    border-radius: 4px;
+    width: 100%; 
+    margin: 0px; 
+    padding: 0px;
+}
+
+</style>
