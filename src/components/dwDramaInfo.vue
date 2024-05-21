@@ -221,8 +221,8 @@ const placement = ref('bottom');
 const open = ref(false);
 const showDrawer = () => {
   open.value = true;
-  let myPlayer = document.getElementById("dwPlayer"+props.siteAndId);
-  myPlayer.play();
+  //let myPlayer = document.getElementById("dwPlayer"+props.siteAndId);
+  //myPlayer.play();
 
 };
 const onClose = () => {
