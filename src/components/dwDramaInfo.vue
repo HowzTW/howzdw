@@ -294,7 +294,7 @@ const PlayPrev = () => {
 
 const filmSourceStyle = (filmSourceId, episodeId) => {
 
-    return (episodeId.startsWith(filmSourceId)) ? "headerFilmsource1" : "headerFilmsource2";
+    return (episodeId.startsWith(filmSourceId)) ? "pinkHeaderFilmsource" : "grayHeaderFilmsource";
 }
 
 </script>
@@ -401,7 +401,7 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
 
 
 <style scoped>
-.headerFilmsource1 {
+.pinkHeaderFilmsource {
     background: #f7e7e7;
     border-radius: 4px;
     width: 100%; 
@@ -409,7 +409,7 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
     padding: 0px;
 }
 
-.headerFilmsource2 {
+.grayHeaderFilmsource {
     background: #f7f7f7;
     border-radius: 4px;
     width: 100%; 
