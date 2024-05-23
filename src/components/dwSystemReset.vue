@@ -21,7 +21,7 @@ const sysInit = () => {
     
     localStorage.setItem('dwMyDramaHistory', JSON.stringify(myDramaHistory));
     localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
-    localStorage.setItem('dwMySites', JsSON.stringify(mySites));
+    localStorage.setItem('dwMySites', JSON.stringify(mySites));
     localStorage.setItem('dwMyRemovedDramaHistory', JSON.stringify(myRemovedDramaHistory));
 
     retrieveLocalStorage();
