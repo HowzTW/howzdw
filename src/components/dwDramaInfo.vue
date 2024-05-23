@@ -28,6 +28,7 @@ dwFetchJsonFile(dramaFilename, dramaObj);
 
 let myDramaHistory = JSON.parse(localStorage.getItem('dwMyDramaHistory'));
 let myEpisodeHistory = JSON.parse(localStorage.getItem('dwMyEpisodeHistory'));
+let myRemovedDramaHistory = JSON.parse(localStorage.getItem('dwMyRemovedDramaHistory'));
 let lastViewedEpisode = myEpisodeHistory[props.siteAndId];
 
 let componentKey = ref(0);
@@ -47,6 +48,8 @@ const removeDrama = (dramaTitle) => {
             //稍晚回來增加刪除影集觀看紀錄 myEpisodeHistory 的程式碼
             delete myEpisodeHistory[props.siteAndId];
             localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
+            myRemovedDramaHistory[props.siteAndId] = dramaTitle;
+            localStorage.setItem('dwMyRemovedDramaHistory', JSON.stringify(myRemovedDramaHistory));
             componentKey = (componentKey + 1) % 10;
             removedFlag.value = "removed";
             Modal.success({

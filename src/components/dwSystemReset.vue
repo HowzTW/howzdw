@@ -10,7 +10,7 @@ let userRole = ""; //空字串
 let myDramaHistory = ["gimy.ai.255602"] //空陣列
 let myEpisodeHistory = {"gimy.ai.255602":"255602-01-001"} //空字典
 let mySites = ["gimy.ai", "pttplay.co"] //空字典
-
+let myRemovedDramaHistory = {"pttplay.co.312":"櫻桃魔法"} //空字典
 
 
 const sysInit = () => {
@@ -21,7 +21,8 @@ const sysInit = () => {
     
     localStorage.setItem('dwMyDramaHistory', JSON.stringify(myDramaHistory));
     localStorage.setItem('dwMyEpisodeHistory', JSON.stringify(myEpisodeHistory));
-    localStorage.setItem('dwMySites', JSON.stringify(mySites));
+    localStorage.setItem('dwMySites', JsSON.stringify(mySites));
+    localStorage.setItem('dwMyRemovedDramaHistory', JSON.stringify(myRemovedDramaHistory));
 
     retrieveLocalStorage();
     Modal.success({
