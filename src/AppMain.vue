@@ -6,6 +6,7 @@ import dwNewDrama from './components/dwNewDrama.vue'
 //import dwTest from './components/dwTest.vue'
 //import dwColorDemo from './components/dwColorDemo.vue'
 import dwMain from './components/dwMain.vue'
+import dwRemovedDramaList from './components/dwRemovedDramaList.vue'
 import playground from './components/playground/playground.vue'
 
 let user = ref("")
@@ -57,11 +58,15 @@ const userChangedHandler = (newUser) => {
             <hr />
         </div>
         <div>
-            <h3 class="subMenuItem" @click="setSection('sysreset')">系統資料重設</h3>
+            <h3 class="subMenuItem" @click="setSection('newdrama')">新增影集</h3>
             <hr />
         </div>
         <div>
-            <h3 class="subMenuItem" @click="setSection('newdrama')">新增影集</h3>
+            <h3 class="subMenuItem" @click="setSection('removedlist')">已刪除影集清單</h3>
+            <hr />
+        </div>
+        <div>
+            <h3 class="subMenuItem" @click="setSection('sysreset')">系統資料重設</h3>
             <hr />
         </div>
         <div>
@@ -82,8 +87,12 @@ const userChangedHandler = (newUser) => {
     <div id="sysreset" class="divContent" v-if="section === 'sysreset'">
         <dwSystemReset />
     </div>
+    
+    <div id="removedlist" class="divContent" v-if="section === 'removedlist'">
+        <dwRemovedDramaList />
+    </div>
 
-    <div id="sysreset" class="divContent" v-if="section === 'newdrama'">
+    <div id="newdrama" class="divContent" v-if="section === 'newdrama'">
         <dwNewDrama />
     </div>
 
