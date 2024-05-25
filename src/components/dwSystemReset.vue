@@ -9,7 +9,7 @@ const passwd = ref("");
 let userRole = ""; //空字串
 let myDramaHistory = ["gimy.ai.255602"] //空陣列
 let myEpisodeHistory = {"gimy.ai.255602":"255602-01-001"} //空字典
-let mySites = ["gimy.ai", "pttplay.co"] //空字典
+let mySites = ["pttplay.co", "gimy.ai"] //空字典
 let myRemovedDramaHistory = {"pttplay.co.312":"櫻桃魔法"} //空字典
 
 
