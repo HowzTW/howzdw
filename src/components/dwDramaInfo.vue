@@ -317,11 +317,15 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
                         <CloseSquareTwoTone @click="removeDrama(dramaObj.dramaTitle)" two-tone-color="#E64833" style="font-size: xx-large" />
                     </a-flex>
                 </a-flex>
-                <a-flex vertical gap="small" justify="start">
-                    <a-flex gap="small" justify="start">
-                        <a-button class="buttonPrimary" type="primary" size="large"  @click="PlayPrev" :disabled="prevButtonDisabled(lastViewedEpisode)"><h3><FastBackwardFilled  style="font-size:larger;" /></h3></a-button>
-                        <a-button class="buttonPrimary" type="primary" size="large"  @click="playLastViewed"><h3>播放 <PlayCircleFilled /></h3></a-button>
-                        <a-button class="buttonPrimary" type="primary" size="large"  @click="PlayNext" :disabled="nextButtonDisabled(lastViewedEpisode)"><h3><FastForwardFilled style="font-size:larger;" /></h3></a-button>
+                <a-flex vertical gap="small" justify="start" style="width: 100%; margin: 0px; padding: 0;">
+                    <a-flex vertical gap="small" justify="start" style="width: 100%; margin: 0px; padding: 0;"> 
+                        <a-flex  gap="small" justify="center" style="width: 100%; margin: 0px; padding: 0;">
+                            <a-button style="width: 100%" class="buttonPrimary" type="primary" size="large"  @click="playLastViewed"><h3>播放 <PlayCircleFilled /></h3></a-button>
+                        </a-flex>
+                        <a-flex  gap="small" justify="space-between" style="width: 100%; margin: 0px; padding: 0;">
+                            <a-button style="width: 49%" class="buttonPrimary" type="primary" size="large"  @click="PlayPrev" :disabled="prevButtonDisabled(lastViewedEpisode)"><h3><FastBackwardFilled  style="font-size:larger;" /></h3></a-button>
+                            <a-button style="width: 49%"class="buttonPrimary" type="primary" size="large"  @click="PlayNext" :disabled="nextButtonDisabled(lastViewedEpisode)"><h3><FastForwardFilled style="font-size:larger;" /></h3></a-button>
+                        </a-flex>
                     </a-flex>
                     <a-flex>
                         <!-- ({{ lastViewedEpisode }})({{ playTitle }})({{ playFilmSource }})({{ playEpisodeId }})({{ playEpisodeName }})({{ playEpisodeUrl }}) -->
@@ -345,7 +349,7 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
                                 <h2>{{ filmSource.filmSourceName }}</h2>
                             </template>
                             <a-flex wrap="wrap" gap="small">
-                                <a-button v-for="episode in filmSource.episodes" :class="episodeButtonClass(episode.episodeId)" :type="episodeButtonType(episode.episodeId)"  :danger="episodeButtonDanger(episode.episodeId)" size="large" style="width: 120px" @click="playVideo(dramaObj.dramaTitle, filmSource.filmSourceName, episode.episodeName, episode.episodeUrl, episode.episodeId)"><h3>{{ episode.episodeName }}</h3></a-button>
+                                <a-button v-for="episode in filmSource.episodes" :class="episodeButtonClass(episode.episodeId)" :type="episodeButtonType(episode.episodeId)"  :danger="episodeButtonDanger(episode.episodeId)" size="large" style="width: 100px" @click="playVideo(dramaObj.dramaTitle, filmSource.filmSourceName, episode.episodeName, episode.episodeUrl, episode.episodeId)"><h3>{{ episode.episodeName }}</h3></a-button>
                             </a-flex>
                         </a-collapse-panel>
                     </a-collapse>
