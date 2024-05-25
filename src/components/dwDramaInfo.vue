@@ -305,18 +305,26 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
 <template>
     <a-flex vertical gap="small" style="width: 100%; margin: 0px; padding: 0;" :key="componentKey">
         <a-flex gap="small" align="start" style="width: 100%; margin: 0px; padding: 0;">
+            <a-flex justify="start" style="width: 100%; margin: 0px; padding: 0;">
+                <h1 class="colorPrimary">{{dramaObj.dramaTitle}}</h1>
+            </a-flex>
+            <a-flex justify="end">
+                <CloseSquareTwoTone @click="removeDrama(dramaObj.dramaTitle)" two-tone-color="#E64833" style="font-size: xx-large" />
+            </a-flex>
+        </a-flex>
+        <a-flex gap="small" align="start" style="width: 100%; margin: 0px; padding: 0;">
             <a-flex>
                 <a-image class="imgCover" :src="dramaObj.dramaCoverUrl" :width="120" />
             </a-flex>
             <a-flex vertical style="width: 100%; margin: 0px; padding: 0;">
-                <a-flex align="start" style="width: 100%; margin: 0px; padding: 0;">
+                <!-- <a-flex align="start" style="width: 100%; margin: 0px; padding: 0;">
                     <a-flex justify="start" style="width: 100%; margin: 0px; padding: 0;">
                         <h1 class="colorPrimary">{{dramaObj.dramaTitle}}</h1>
                     </a-flex>
                     <a-flex justify="end">
                         <CloseSquareTwoTone @click="removeDrama(dramaObj.dramaTitle)" two-tone-color="#E64833" style="font-size: xx-large" />
                     </a-flex>
-                </a-flex>
+                </a-flex> -->
                 <a-flex vertical gap="small" justify="start" style="width: 100%; margin: 0px; padding: 0;">
                     <a-flex vertical gap="small" justify="start" style="width: 100%; margin: 0px; padding: 0;"> 
                         <a-flex  gap="small" justify="center" style="width: 100%; margin: 0px; padding: 0;">
@@ -338,7 +346,14 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
             <a-collapse v-model:activeKey="activeKey" accordion  expand-icon-position="end" style="width: 100%; margin: 0px; padding: 0;">
                 <a-collapse-panel key="title" >
                     <template #header>
-                        <h2 class="colorPrimary">影集來源 ({{ siteAndId }})</h2>
+                        <a-flex>
+                            <a-flex>
+                                <h2 class="colorPrimary">影集來源</h2>
+                            </a-flex>
+                            <a-flex>
+                                ({{ siteAndId }})
+                            </a-flex>
+                        </a-flex>
                     </template>
                     <a-collapse v-model:activeKey="activeKeySource" accordion  v-for="filmSource in dramaObj.filmSources"  :class="filmSourceStyle(filmSource.filmSourceId,lastViewedEpisode)" >
                         <template #expandIcon="{ isActive }">
