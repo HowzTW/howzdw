@@ -17,8 +17,8 @@ const optionSites = ref([]);
 for(let i=0; i<mySites.length; i++)
 {
     let site = {
-        value: mySites[i],
-        label: mySites[i],
+        value: mySites[mySites.length - i -1],
+        label: mySites[mySites.length - i -1],
     }
     optionSites.value.push(site);
 }
