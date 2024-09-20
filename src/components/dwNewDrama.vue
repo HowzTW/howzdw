@@ -10,16 +10,17 @@ let myEpisodeHistory = JSON.parse(localStorage.getItem('dwMyEpisodeHistory'));
 let mylist = ref([]);
 mylist.value = myDramaHistory;
 
-//const mySites = JSON.parse(localStorage.getItem('dwMySites'));
-const mySites = ["gimy.ai", "pttplay.co", "fake.site"];
+const mySites = JSON.parse(localStorage.getItem('dwMySites'));
+//const mySites = ["gimy.ai", "pttplay.co", "fake.site"];
 const siteValue = ref("");
-siteValue.value = mySites[0];
+//siteValue.value = mySites[0];
+siteValue.value = "gimy.ai";
 const optionSites = ref([]);
 for(let i=0; i<mySites.length; i++)
 {
     let site = {
-        value: mySites[mySites.length - i -1],
-        label: mySites[mySites.length - i -1],
+        value: mySites[i],
+        label: mySites[i],
     }
     optionSites.value.push(site);
 }
