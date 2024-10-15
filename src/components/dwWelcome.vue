@@ -65,7 +65,7 @@ watch( currentUser, (newValue, oldValue) => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 8 8">
                     <path fill="currentColor" d="M0 0v3l5 5l3-3l-5-5zm2 1c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1" />
                 </svg>
-                version: 1.0 (released: 2024-10-15 11:35)
+                version: 1.0 (released: 2024-10-15 11:41)
                 <br /><button onclick="location.reload()">RELOAD</button>
             </div>
         </a-flex>
