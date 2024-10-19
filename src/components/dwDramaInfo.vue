@@ -418,10 +418,10 @@ const filmSourceStyle = (filmSourceId, episodeId) => {
             <!-- <video src="https://m3u.haiwaikan.com/xm3u8/c9265de5e11c37c608c85996ffd5a40068a4ebdac8735e1a0a9c5b22bd47d08d9921f11e97d0da21.m3u8" controls style="width: 300px;"></video> -->
             <br />
             <!--
-            <br /><input type="text" :value="playEpisodeUrl"/>
             -->
             <a-button style="width: 100px; margin: 3px" class="buttonPrimary" type="primary" size="large"  @click="PlayPrev" :disabled="prevButtonDisabled(lastViewedEpisode)"><h3><FastBackwardFilled  style="font-size:larger;" /></h3></a-button>
             <a-button style="width: 100px; margin: 3px"class="buttonPrimary" type="primary" size="large"  @click="PlayNext" :disabled="nextButtonDisabled(lastViewedEpisode)"><h3><FastForwardFilled style="font-size:larger;" /></h3></a-button>
+            <br /><input type="text" :value="playEpisodeUrl" width="100%"/>
         </a-drawer>
 
 </template>
