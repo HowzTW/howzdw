@@ -66,7 +66,7 @@ watch( currentUser, (newValue, oldValue) => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 8 8">
                         <path fill="currentColor" d="M0 0v3l5 5l3-3l-5-5zm2 1c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1" />
                     </svg>
-                    版本: 2025 年 04 月 21 日
+                    版本: 2025 年 04 月 21 日 v2
                 </p>
                 <p><a-button style="width: 49%;"class="" type="primary" danger="true" size="large" onclick="location.reload()"><b>重新載入</b></a-button></p>
             </div>
